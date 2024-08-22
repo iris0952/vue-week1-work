@@ -82,12 +82,15 @@ const confirmEdit = () => {
     quantity: 0
   }
 }
-const addStock = (menu) => {
-  menu.stock++
+const addQty = (menu) => {
+  menu.quantity += 1
 }
-const subtractStock = (menu) => {
-  if (menu.stock > 0) {
-    menu.stock--
+const minusQty = (menu) => {
+  if (menu.quantity > 0) {
+    menu.quantity -= 1
+    console.log('click -1')
+  } else {
+    menu.quantity = 0
   }
 }
 </script>
@@ -112,8 +115,9 @@ const subtractStock = (menu) => {
           </td>
           <td>{{ menu.price }}</td>
           <td>
-            <button type="button" @click="subtractStock(menu)">-</button> {{ menu.quantity }}
-            <button type="button" @click="addStock(menu)">+</button>
+            <button type="button" @click="minusQty(menu)">-</button>
+            <span class="num">{{ menu.quantity }}</span>
+            <button type="button" @click="addQty(menu)">+</button>
           </td>
           <td><button type="button" @click="editMenu(menu)">編輯</button></td>
         </tr>
@@ -156,5 +160,10 @@ label {
 }
 .me-3 {
   margin-right: 5px;
+}
+.num {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
 }
 </style>
