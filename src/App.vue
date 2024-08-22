@@ -82,6 +82,14 @@ const confirmEdit = () => {
     quantity: 0
   }
 }
+const addStock = (menu) => {
+  menu.stock++
+}
+const subtractStock = (menu) => {
+  if (menu.stock > 0) {
+    menu.stock--
+  }
+}
 </script>
 
 <template>
@@ -93,6 +101,7 @@ const confirmEdit = () => {
           <th scope="col">描述</th>
           <th scope="col">價格</th>
           <th scope="col">庫存</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -103,8 +112,8 @@ const confirmEdit = () => {
           </td>
           <td>{{ menu.price }}</td>
           <td>
-            <button type="button">-</button> {{ menu.quantity }}
-            <button type="button">+</button>
+            <button type="button" @click="subtractStock(menu)">-</button> {{ menu.quantity }}
+            <button type="button" @click="addStock(menu)">+</button>
           </td>
           <td><button type="button" @click="editMenu(menu)">編輯</button></td>
         </tr>
@@ -129,7 +138,8 @@ const confirmEdit = () => {
         <label for="quantity">庫存：{{ tempData.quantity }} 個</label>
         <input id="quantity" type="text" v-model="tempData.quantity" />
       </div>
-      <button type="button" @click="confirmEdit(menu)">儲存編輯</button>
+      <button type="button" @click="confirmEdit(menu)" class="me-3">儲存編輯</button>
+      <button type="button" @click="tempData = {}">取消編輯</button>
     </div>
   </div>
 </template>
@@ -139,6 +149,12 @@ th {
   font-size: 1.2rem;
 }
 label {
+  margin-right: 5px;
+}
+.inputArea {
+  margin-bottom: 5px;
+}
+.me-3 {
   margin-right: 5px;
 }
 </style>
